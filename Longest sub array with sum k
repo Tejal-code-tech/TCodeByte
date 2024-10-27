@@ -1,0 +1,62 @@
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+class Solution{
+    public:
+    int lenOfLongSubarr(int A[],  int N, int K) 
+    { 
+        unordered_map<int, int> sumIndexMap; 
+        int maxLength = 0;  
+        int cumSum = 0;
+
+        for (int i = 0; i < N; i++) {
+            cumSum += A[i];  
+            
+            
+            if (cumSum == K) {
+                maxLength = i + 1;  // Update maxLength
+            }
+
+            
+            if (sumIndexMap.find(cumSum - K) != sumIndexMap.end()) {
+                maxLength = max(maxLength, i - sumIndexMap[cumSum - K]);
+            }
+
+            
+            if (sumIndexMap.find(cumSum) == sumIndexMap.end()) {
+                sumIndexMap[cumSum] = i; 
+            }
+        }
+
+        return maxLength; 
+    } 
+
+};
+
+//{ Driver Code Starts.
+
+int main() {
+	//code
+	
+	int t;cin>>t;
+	while(t--)
+	{
+	    int n, k;
+	    cin>> n >> k;
+	    int a[n];
+	    
+	    for(int i=0;i<n;i++)
+	        cin>>a[i];
+	   Solution ob;
+	   cout << ob.lenOfLongSubarr(a, n , k)<< endl;
+	    
+	
+cout << "~" << "\n";
+}
+	
+	return 0;
+}
+// } Driver Code Ends
